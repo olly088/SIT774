@@ -1,0 +1,183 @@
+<%- include('header'); -%>
+
+<%- include('navigation'); -%>
+  
+    
+
+    <!-- Continent Summary -->
+    <div class="container text-center justify-content-center mt-2 mb-2 p-3">
+        <div class="row">
+            <div class="col-12 text-muted">
+                <h1 class="text-dark">Africa</h2>
+                <p class="card-text d-none d-md-block">As the second-largest continent on the planet, harboring more than 50 different countries as well as an amazing variety of cultures, landscapes and wildlife, Africa is full of surprises.
+                    Africa is huge. The continent stretches from the Mediterranean in the north, narrows at the equator and tapers down in the temperate zone of the Southern Hemisphere. The often spectacular scenery includes the Sahara Desert, soaring sand dunes in Namibia, mighty Mount Kilimanjaro, and the rainforests of the Congo river basin.
+                    Don't forget Madagascar, the Seychelles and Mauritius either, three jewels in the crown of the Indian Ocean. 
+                    Mixed in among these landscapes are animal species and peoples as varied as the terrain.
+                    In Northern Africa, the idyllic Mediterranean beaches of Tunisia and Algeria, along with the Red Sea in Egypt, entice sunbathers and scuba divers. The Atlas Mountains in Morocco attract avid hikers, while history lovers flock to the Egyptian pyramids and museums.</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    <!-- Country Card summaries -->
+    <div class="d-none d-md-flex justify-content-around mt-3">
+        
+        <% trips.forEach(function(trip, index) { %>
+        <!-- Info card for morocco -->
+        <div class="card" style="width: 22rem;">
+            <img src="/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= trip.Featured_Pic %>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<%= trip.Country %> pic">
+            <div class="card-body d-flex flex-column">
+                <h4><strong><%= trip.Country %></strong></h4>
+                <!-- Source: Expedia.com/morocco -->
+                <p class="card-text d-none d-md-block"><%= trip.Description %></p>
+                <div class="d-flex mt-auto">
+                    <div class="col-8">
+                        <ul class="list-unstyled">
+                            <li><strong>Cost: </strong>$<%= trip.Cost %></li>
+                            <li><strong>Length: </strong><%= trip.Length %> days</li>
+                            <li><strong>Start: </strong><%= trip.Start_Date %></li>
+                        </ul>
+                    </div>
+                    <div class="col-4 d-flex mt-auto justify-content-end">
+                        <a class="fs-5" href="/trips/<%= trip.Country %>">More Info</a>
+                    </div>  
+                </div>   
+            </div>
+        </div>
+        <% }); %>
+    </div>
+
+
+    <!-- Alternative Horizontal card summaries for small screens-->
+    <div class="d-flex flex-column d-md-none justify-content-center align-items-center mt-3">
+    
+       <% trips.forEach(function(trip, index) { %>
+        <div class="card flex-md-row mt-2 mb-2" style="max-width: 500px;">  
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h4><strong>Morocco</strong></h4>
+                <div class="d-flex mt-auto justify-content-between">
+                    <div class="col-6">
+                        <img src="/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= trip.Featured_Pic %>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<%= trip.Country %> pic">
+                    </div>
+                    <div class="col-6 d-flex flex-column">
+                        <ul class="list-unstyled m-2">
+                            <li><strong>Cost: </strong>$<%= trip.Cost %></li>
+                            <li><strong>Length: </strong><%= trip.Length %> days</li>
+                            <li><strong>Start: </strong><%= trip.Start_Date %></li>
+                        </ul>
+                        <div class="mt-auto text-end me-2">
+                            <a class="fs-5" href="/trips/<%= trip.Country %>">More Info</a>
+                        </div>  
+                    </div>
+                </div>   
+            </div>
+        </div>
+        <% }); %>
+
+    </div>
+
+
+    
+    <!-- Different country quotes -->
+    <div id="carouselQuotes" class="carousel slide mt-3 mb-3 p-3 fs-4 align-items-center" style="height: 200px;" data-bs-ride="carousel">
+        <div class="carousel-inner" style="height: 200px;">
+            <!-- Slide 1 : Default -->
+            <div class="carousel-item active" style="height: 200px;">
+                <div class="row align-items-center h-100">      
+                    <!-- Text column -->
+                    <div class="col-12 text-secondary text-center">
+                        <em>“I never knew of a morning in Africa when I woke up that I was not happy.” - Ernest Hemingway</em>
+                    </div>   
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item" style="height: 200px;">
+                <div class="row align-items-center h-100">          
+                    <!-- Text column -->
+                    <div class="col-12 text-secondary text-center">
+                        <em>“There is no place like Africa. There is something about the spirit of the people, the beauty of the land, and the diversity of the wildlife that touches the soul.” - Tony Fitzjohn</em>
+                    </div> 
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-item" style="height: 200px;">
+                <div class="row align-items-center h-100">          
+                    <!-- Text column -->
+                    <div class="col-12 text-secondary text-center">
+                        <em>“Africa - You can see a sunset and believe you have witnessed the Hand of God. You watch the slope lope of a lioness and forget to breathe.” - Leigh Brackett</em>
+                    </div> 
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="m-3 text-muted">
+        <h2 class="text-dark">Get Excited for your trip with some trivia!</h2>
+        <p>Press the buttons below to reveal the answers to their questions. Have a guess first and write it down and see how much you know about the great continent of Africa.</p>
+
+        <p class="d-flex justify-content-center gap-1">
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">How many Languages</a>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">How many people</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">Oldest Civilisation</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4">Who is history's richest man</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample5" aria-expanded="false" aria-controls="multiCollapseExample5">World's Longest River</button>
+          </p>
+
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body">
+                        <p>The number of languages is estimated between <strong>1250 and 2100</strong> with some estimates pushing that number up to 3100. Nigeria alone has 500 languages. The most commonly spoken language is Arabic spoken by about 150,000,000 people.</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                    <div class="card card-body">
+                        <p>Africa currently has a population of <strong>1.5 billion</strong> Nigeria is the most populous country at 235 million people followed by the Congo (DNC) and Ethiopia.</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample3">
+                    <div class="card card-body">
+                    <p>The oldest African Civilisation is <strong>Ancient Egypt</strong> which emerged around 3400 BC. Other older african civilisations include Nubia in modern Sudan and Carthage in modern Tunisia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample4">
+                    <div class="card card-body">
+                    <p><strong>Mansa Musa</strong> the 14th century King of Mali is considerd the richest man in history with an estimated fortune of half a trillion dollars.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample5">
+                    <div class="card card-body">
+                    <p>The longest river in the world is the <strong>Nile River</strong> which is nearly 6700km long running from Lake Victoria in Tanzania all the way until it meets the Mediterranean in Egypt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+<%- include('footer'); -%>

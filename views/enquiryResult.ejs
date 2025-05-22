@@ -1,0 +1,71 @@
+<%- include('header'); -%>
+
+<%- include('navigation'); -%>
+  
+
+    <!-- Content wrapper -->
+    <!-- <div class="content-wrapper"> -->
+
+        <!-- content Div -->
+        <div class="content p-2">
+            
+            <!-- Upper text div -->
+            <div class="p-4">
+                <!-- Header -->
+                <div>
+                    <h1>Contact Us</h1>
+                </div>
+                <!-- Content -->
+                <div>
+                    <h4>Summary of your enquiry, will get back to you as fast as possible.</h4>
+                    <p>Take special note of your <strong>Enquiry ID</strong> to make answering any follow up questions easier.</p>
+                </div>
+            </div>
+
+            
+            
+            <div class="p-4">
+ 
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Enquiry ID</th>
+                        <td><%= enquiry.Enquiry_ID %></td>
+                    </tr>
+                        <tr>
+                        <th scope="row">Account ID</th>
+                        <td><%= enquiry.Name %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Username</th>
+                        <td><%= enquiry.Email %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Password</th>
+                        <td><%= enquiry.Phone_Number %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Plan Type</th>
+                        <td><%= enquiry.Customer_Enquiry %></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+            <!-- Our details: -->
+            <div class="p-4">
+                <div class="row">
+                    <h2>You can also reach us at: </h2>
+                    <ul><strong>Email: </strong>support@olliesadventures.com.au</ul>
+                    <ul><strong>Phone: </strong>+61 449 999 999</ul>
+                    <ul><strong>Address: </strong>221 Burwood Highway, Burwood, Victoria 3125</ul>
+                    <ul><strong>Working Hours: </strong>9am - 5pm AEST</ul>
+                </div>
+            </div>
+            
+        </div>
+   
+
+<%- include('footer'); -%>

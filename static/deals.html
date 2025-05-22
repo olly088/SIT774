@@ -1,0 +1,59 @@
+<%- include('header'); -%>
+
+<%- include('navigation'); -%>
+  
+
+    <!-- content Div -->
+    <div class="p-2">
+        
+        <!-- Upper text div -->
+        <div class="p-4">
+            <!-- Header -->
+            <div>
+                <h1>Last Minute Deals</h1>
+            </div>
+            <!-- Content -->
+            <div>
+                <p>
+                    Looking for a last minute getaway, explore our last minute deals for holiday packages that leave soon. Hurry and order quicly as spaces fill up!
+                    <br>
+                    When booking just use code <strong>Adventure Time</strong> for the discounted rate.
+                </p>
+            </div>
+        </div>
+
+        
+
+
+
+        <!-- Country Card summaries -->
+        <div class="d-flex justify-content-around mt-3 mb-3">
+            <% deals.forEach(function(deal, index) { %>
+                <!-- Info card for morocco -->
+                <div class="card" style="width: 22rem;">
+                    <img src="/static/images/<%= deal.Continent %>/<%= deal.Country %>/<%= deal.Featured_Pic %>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<%= deal.Country %> pic">
+                    <div class="card-body d-flex flex-column">
+                        <h4><strong><%= deal.Country %></strong></h4>
+                        <!-- Source: Expedia.com/morocco -->
+                        <p class="card-text d-none d-md-block"><%= deal.Description %></p>
+                        <div class="d-flex mt-auto">
+                            <div class="col-8">
+                                <ul class="list-unstyled">
+                                    <li><strong>Cost: </strong><s>$<%= deal.Cost %></s> $<%= deal.New_Price %></li>
+                                    <li><strong>Length: </strong><%= deal.Length %> days</li>
+                                    <li><strong>Start: </strong><%= deal.Start_Date %></li>
+                                    <li><strong>Spaces left: </strong>5</li>
+                                </ul>
+                            </div>
+                            <div class="col-4 d-flex mt-auto justify-content-end">
+                                <a class="fs-5" href="/trips/<%= deal.Country %>">More Info</a>
+                            </div>  
+                        </div>   
+                    </div>
+                </div>
+            <% }); %>
+
+        </div>
+    </div>
+
+<%- include('footer'); -%>

@@ -1,0 +1,201 @@
+<%- include('header'); -%>
+
+<%- include('navigation'); -%>
+
+    <!-- content Div -->
+    <div class="p-2">
+
+        <!-- Company Summary -->
+        <div class="container text-center justify-content-center mt-2 mb-2 p-3">
+            <div class="row">
+                <div class="col-12 text-muted">
+                    <h1 class="text-dark">Ollie's Adventures</h2>
+                    <p class="card-text d-none d-md-block">
+                        We here at package holidays aim to curate safe and high-quality holidays for people and families of all ages so that everybody has the opporutnity to experience the majesty of the world conviently and at an affordable price.
+                        We offer packages to a wide range of locations, we have sorted our popular destinations by continent. Take a look and get started on your next great adventure!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continent cards -->
+        <div class="p-4">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-8">
+                                <h4><strong>Africa:</strong></h4>
+                                <!-- Source: Expedia.com/Africa -->
+                                <div class="col d-flex mt-auto flex-column">
+                                <p>
+                                    As the second-largest continent on the planet, harboring more than 50 different countries as well as an amazing variety of cultures, landscapes and wildlife, Africa is full of surprises.
+                                    Africa is huge. The continent stretches from the Mediterranean in the north, narrows at the equator and tapers down in the temperate zone of the Southern Hemisphere. The often spectacular scenery includes the Sahara Desert, soaring sand dunes in Namibia, mighty Mount Kilimanjaro, and the rainforests of the Congo river basin.
+                                    Don't forget Madagascar, the Seychelles and Mauritius either, three jewels in the crown of the Indian Ocean. 
+                                    Mixed in among these landscapes are animal species and peoples as varied as the terrain.
+                                    In Northern Africa, the idyllic Mediterranean beaches of Tunisia and Algeria, along with the Red Sea in Egypt, entice sunbathers and scuba divers. The Atlas Mountains in Morocco attract avid hikers, while history lovers flock to the Egyptian pyramids and museums.</p>
+                                <a class="fs-5" href="/africa">Africa Holidays</a>
+                                </div>
+                            </div>
+                            <div class="col-4 d-flex justify-content-end align-items-center">
+                                <img id='africa-pic' src="/static/images/africa/africa.jpg" style="height: 200px; object-fit: cover;" class="card-img-top" alt="Africa picture">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-4 d-flex justify-content-end align-items-center">
+                                <img id='europe-pic' src="/static/images/europe/europe.webp" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Europe picture">
+                            </div>
+                            <div class="col-8">
+                                <h4><strong>Europe:</strong></h4>
+                                <div class="col d-flex mt-auto flex-column">
+                                    <p>A vacation in Europe can mean anything from a tour of some of the world's most famous landmarks and cities, to enjoying a quiet getaway in the far corners of this surprisingly diverse continent.
+                                        Europe packs in many flavors, traditions, religions and colors. The continent tops the list for those who love history, culture, shopping, wining and dining. Nature is never far away, if you need to unwind.       
+                                        Whether you picture yourself skiing in the Alps, getting happily lost in cobblestoned old towns, getting pampered in Icelandic hotsprings and Scandinavian saunas, or lazing on a Mediterranean beach, Europe makes many daydreams come true.
+                                    </p>
+                                    <a class="fs-5" href="europe">Europe Holidays</a>
+                                </div>  
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-8">
+                                <h4><strong>Asia:</strong></h4>
+                                <div class="col d-flex mt-auto flex-column">
+                                    <p>Experience new flavors, smells, sounds and vistas in this continent that offers everything from horse riding on the plains of Mongolia to swimming at Thailand's beaches.
+                                        Stretched out between Turkey in the northwest and Singapore in the southeast, even reaching as far as eastern Russia, Asia is huge. As the world's biggest and most populated continent, this is a place of endless possibilities.   
+                                        It's not just the affordable travel that makes Asia such a tourism hotspot. Its ancient history shines through in ruined forts and temples, its religions and rituals are as diverse as it gets and its eclectic cuisine is a feast for the senses.
+                                    </p>
+                                    <a class="fs-5" href="asia">Asia Holidays</a>
+                                </div>  
+                            </div>
+                            <div class="col-4 d-flex justify-content-end align-items-center">
+                                <img id='asia-pic' src="/static/images/asia/asia.jpg" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Asia picture">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                </div>    
+        </div>
+
+        <!-- Deal Div -->
+        <div class="p-4">
+            <div class="mb-4 fs-4">
+                <p>Looking for a last minute getaway. Browse our last-minute deals for upcoming holiday packages! Use code <strong>Adventure Time</strong> when booking for discounted price.</p>
+            </div>
+            <!-- Deal cards -->
+            <div>
+                <div class="card mt-4">
+                    <ul class="list-group list-group-flush">
+                        <% deals.forEach(function(deal, index) { %>
+                        <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-0"><strong><%= deal.Country %>: </strong> <%= deal.Start_Date %> from <em>$<%= deal.New_Price %></em></p>
+                            <a href="/trips/<%= deal.Country %>" class="ms-auto">More info</a>
+                        </div>
+                      </li>
+                    <% }); %>
+                    </ul>
+                </div>    
+            </div>
+        </div>
+
+        <!-- Random Trip -->
+        <div class="p-4">
+            <div class="mb-4 fs-4">
+                <p>Not sure where you want to go. Press below to be randomly suggested one of our many great packages.</p>
+            </div>
+            
+            <!-- Modal (code coopied from bootstrap documentation)-->
+            <!-- Button trigger modal -->
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#randomCountryModal" onclick="selectRandomCountry()">
+                    Launch random Country
+                </button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="randomCountryModal" tabindex="-1" aria-labelledby="randomCountryModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="randomCountryModalLabel">Random Country</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="randomCountryModalBody" class="modal-body text-center">
+                        <div class="row mt-3 mb-3">
+                            <p>The random country selected is <strong><span id="randomCountryName">Country name</span></strong></p>
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <img id="randomCountryImage" src="/static/images/africa/egypt/egypt.jpg" style="width: 100%; height: 100%; object-fit: fill;" alt="image of suggested country">
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <span id="randomCountryDescription">PlaceHolder</span>
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <ul class="list-unstyled">
+                                <li><strong>Cost: </strong>$<span id="randomCountryCost">placeholder</span></li>
+                                <li><strong>Length: </strong></strong><span id="randomCountryLength">placeholder</span> days</li>
+                                <li><strong>Start: </strong></strong><span id="randomCountryDate">placeholder</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Not interested</button>
+                    <a id="randomCountryLink" href="/africa/morocco" class="btn btn-primary">Go to Country page</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <style>
+        
+        #africa-pic:hover {
+            content: url('/static/images/africa/africaGif.gif');
+        }
+
+        #asia-pic:hover {
+            content: url('/static/images/asia/asiaGif.gif');
+        }
+
+        #europe-pic:hover {
+            content: url('/static/images/europe/europeGif.gif');
+        }
+    </style>
+
+    <script>
+
+        const holidayPackages = {
+            "holidayPackages" : [
+            {"country" : "Morocco", "image" : "/static/images/africa/morocco/morocco_sum.avif", "cost" : "2499", "length" : "14", "date" : "05-Jul", "link" : "africa/morocco", "description" : "At the crossroads of Europe and Africa, surrounded by Mediterranean waters and opening onto the vastness of the Atlantic ocean, Morocco is a wonderland for nature lovers. It is the 'land of the distant sunset', a destination rich in contrasts, with a two thousand year-old history, that will stimulate your curiosity. In these lands where several dynasties succeeded one another, you'll discover remains of the greatest Mediterranean civilizations. In the north of the country, the Roman ruins of Volubilis stand. In Rabat, pieces of architecture are evidence of the ancient French presence. Everywhere else, there are several treasures tracing the Muslim civilizations : the Kasbah of the Oudayas, the green expanses of the Menara gardens. Between sea and mountains, desert sands and green plains, eye-popping panoramas are displayed to shower you with tranquility and natural beauty; enchanting vivid pictures with the richness of a brawling culture transport you into a most raw nature."},
+            {"country" : "Tanzania", "image" : "/static/images/africa/tanzania/tanzania_sum.jpeg", "cost" : "2999", "length" : "16", "date" : "06-Jun", "link" : "africa/tanzania", "description" : "Though many people's first introduction to Tanzania is gazing open-mouthed at footage of huge numbers of wildebeest and zebra moving through Serengeti National Park, there is so much more to see and do in this beautiful nation. There are several national parks that are scattered like jewels across the country and they boast the largest concentration of wildlife in Africa. Tanzanias coastline is dotted with stunning beaches and its paradise islands are renowned for their beauty, lapped by the Indian Ocean and the teeming wildlife underneath the waves. In the bustling cities, the buildings tell stories of battles and conquest, depression and victory. It would take a lifetime to see everything on offer but start your to-do list now with these 12 unmissable experiences in Tanzania."},
+            {"country" : "Egypt", "image" : "/static/images/africa/egypt/egypt_sum.jpeg", "cost" : "3499", "length" : "21", "date" : "08-Jul", "link" : "africa/egypt", "description" : "An enigmatic treasure trove of almost unimaginable archaeological and cultural riches, it's hard not to think of Egypt without imagining the Sphinx, the pyramids at Giza, Luxor, the Valley of the Kings and the Nile. As well as being the world's largest open-air museum, Egypt also offers a slew of luxurious Red Sea resorts, many within reach of spectacular snorkeling, diving and windsurfing. Whether you see it by riverboat, from camelback or from just above the coral, Egypt's sights are unforgettable."}
+            ]
+        }
+        
+        
+        function selectRandomCountry() {
+            
+            // Random selection
+            let selectionNum = Math.floor(Math.random() * 3);
+        
+        
+            // Load image and get corresponding value
+            document.getElementById('randomCountryImage').src = holidayPackages["holidayPackages"][selectionNum]["image"];
+            document.getElementById("randomCountryName").innerText = holidayPackages["holidayPackages"][selectionNum]["country"];
+            document.getElementById('randomCountryDescription').innerText = holidayPackages["holidayPackages"][selectionNum]["description"];
+            document.getElementById("randomCountryCost").innerText = holidayPackages["holidayPackages"][selectionNum]["cost"];
+            document.getElementById("randomCountryLength").innerText = holidayPackages["holidayPackages"][selectionNum]["length"];
+            document.getElementById("randomCountryDate").innerText = holidayPackages["holidayPackages"][selectionNum]["date"];
+            document.getElementById("randomCountryLink").href = holidayPackages["holidayPackages"][selectionNum]["link"];
+            
+        }
+    </script>
+
+<%- include('footer'); -%>

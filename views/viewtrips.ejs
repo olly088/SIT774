@@ -1,0 +1,65 @@
+<%- include('header'); -%>
+
+<%- include('navigation'); -%>
+  
+
+    <!-- Content wrapper -->
+    <!-- <div class="content-wrapper"> -->
+
+        <!-- content Div -->
+        <div class="content p-2">
+            
+            <!-- Upper text div -->
+            <div class="p-4">
+                <!-- Header -->
+                <div>
+                    <h1>List of all Trips</h1>
+                </div>
+                <!-- Content -->
+                <div>
+                    <p>Looking for a specific trip but having trouble finding it. Use the search in the navigation bar to filter for countries you want to look at.</p>
+                </div>
+            </div>
+
+            
+            
+            <div class="p-4">
+                
+                <!-- Chech if enquiries is passed in and if length of enquiries is greater than 0 -->
+                <% if (trips && trips.length > 0) { %>
+                    <h4>Here's the list of all matching trips, click the link to be taken to the page and get more information.</h4>
+                    <table class="table table-bordered mt-4">
+                    <thead>
+                        <tr>
+                        <th>Continent</th>
+                        <th>Country</th>
+                        <th>Cost</th>
+                        <th>Length</th>
+                        <th>Start Date</th>
+                        <th>More Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% trips.forEach(function(trip) { %>
+                        <tr>
+                            <td><%= trip.Continent %></td>
+                            <td><%= trip.Country %></td>
+                            <td>$<%= trip.Cost %></td>
+                            <td><%= trip.Length %> days</td>
+                            <td><%= trip.Start_Date %></td>
+                            <td><a href="/trips/<%= trip.Country %>"><%= trip.Country %></a></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                    </table>
+                <% } else { %>
+                    <h4>No matchin trips found.</h4>
+                    <a href="/viewtrips?searchTerm=">See all trips</a>
+                <% } %>
+
+            </div>
+            
+        </div>
+
+
+<%- include('footer'); -%>

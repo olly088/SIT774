@@ -1,0 +1,184 @@
+<%- include('header'); -%>
+
+<%- include('navigation'); -%>
+  
+    
+
+    <!-- Continent Summary -->
+    <div class="container text-center justify-content-center mt-2 mb-2 p-3">
+        <div class="row">
+            <div class="col-12 text-muted">
+                <h1 class="text-dark">Asia</h2>
+                <p class="card-text d-none d-md-block">Stretched out between Turkey in the northwest and Singapore in the southeast, even reaching as far as eastern Russia, Asia is huge. 
+                    As the world's biggest and most populated continent, this is a place of endless possibilities. It's not just the affordable travel that makes Asia such a tourism hotspot. 
+                    Its ancient history shines through in ruined forts and temples, its religions and rituals are as diverse as it gets and its eclectic cuisine is a feast for the senses. 
+                    Of course, what is means to discover Asia is different for everyone. For many, walking over theGreat Wall of China, stepping into theTaj MahalinIndia, or cycling among the moss-clad ruins of Angkor Wat in Cambodia features high on their bucket list. 
+                    Others are saving up for a photography course inSri Lanka, a yoga retreat in India or a foodie tour ofJapan. Meanwhile, the more adventurous types may dream of an eco-tour ofVietnam, tubing down a river inLaos, climbing a volcano inSumatraor even climbingMount EverestinNepal.</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    <!-- Country Card summaries -->
+    <div class="d-none d-md-flex justify-content-around mt-3">
+        
+        <% trips.forEach(function(trip, index) { %>
+        <!-- Info card for morocco -->
+        <div class="card" style="width: 22rem;">
+            <img src="/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= trip.Featured_Pic %>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<%= trip.Country %> pic">
+            <div class="card-body d-flex flex-column">
+                <h4><strong><%= trip.Country %></strong></h4>
+                <!-- Source: Expedia.com/morocco -->
+                <p class="card-text d-none d-md-block"><%= trip.Description %></p>
+                <div class="d-flex mt-auto">
+                    <div class="col-8">
+                        <ul class="list-unstyled">
+                            <li><strong>Cost: </strong>$<%= trip.Cost %></li>
+                            <li><strong>Length: </strong><%= trip.Length %> days</li>
+                            <li><strong>Start: </strong><%= trip.Start_Date %></li>
+                        </ul>
+                    </div>
+                    <div class="col-4 d-flex mt-auto justify-content-end">
+                        <a class="fs-5" href="/trips/<%= trip.Country %>">More Info</a>
+                    </div>  
+                </div>   
+            </div>
+        </div>
+        <% }); %>
+    </div>
+
+
+    <!-- Alternative Horizontal card summaries for small screens-->
+    <div class="d-flex flex-column d-md-none justify-content-center align-items-center mt-3">
+    
+       <% trips.forEach(function(trip, index) { %>
+        <div class="card flex-md-row mt-2 mb-2" style="max-width: 500px;">  
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h4><strong>Morocco</strong></h4>
+                <div class="d-flex mt-auto justify-content-between">
+                    <div class="col-6">
+                        <img src="/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= trip.Featured_Pic %>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<%= trip.Country %> pic">
+                    </div>
+                    <div class="col-6 d-flex flex-column">
+                        <ul class="list-unstyled m-2">
+                            <li><strong>Cost: </strong>$<%= trip.Cost %></li>
+                            <li><strong>Length: </strong><%= trip.Length %> days</li>
+                            <li><strong>Start: </strong><%= trip.Start_Date %></li>
+                        </ul>
+                        <div class="mt-auto text-end me-2">
+                            <a class="fs-5" href="/trips/<%= trip.Country %>">More Info</a>
+                        </div>  
+                    </div>
+                </div>   
+            </div>
+        </div>
+        <% }); %>
+
+    </div>
+
+
+
+
+    
+    <!-- Different country quotes -->
+    <div id="carouselQuotes" class="carousel slide mt-3 mb-3 p-3 fs-4 align-items-center" style="height: 200px;" data-bs-ride="carousel">
+        <div class="carousel-inner" style="height: 200px;">
+            <!-- Slide 1 : Default -->
+            <div class="carousel-item active" style="height: 200px;">
+                <div class="row align-items-center h-100">      
+                    <!-- Text column -->
+                    <div class="col-12 text-secondary text-center">
+                        <em>"To travel in Asia is to encounter the past — not as ruins, but as a living presence.” - Jan Morris</em>
+                    </div>   
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item" style="height: 200px;">
+                <div class="row align-items-center h-100">          
+                    <!-- Text column -->
+                    <div class="col-12 text-secondary text-center">
+                        <em>"No matter how far you travel, you can never get away from yourself. Especially in Asia." - Haruki Murakami</em>
+                    </div> 
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-item" style="height: 200px;">
+                <div class="row align-items-center h-100">          
+                    <!-- Text column -->
+                    <div class="col-12 text-secondary text-center">
+                        <em>"Asia gave birth to the world's major religions — Buddhism, Hinduism, Islam, and more. It has always been a continent of awakening." - Karen Armstrong</em>
+                    </div> 
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="m-3 text-muted">
+        <h2 class="text-dark">Get Excited for your trip with some trivia!</h2>
+        <p>Press the buttons below to reveal the answers to their questions. Have a guess first and write it down and see how much you know about the great continent of Africa.</p>
+
+        <p class="d-flex justify-content-center gap-1">
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Worlds Most populous Country</a>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">First Chinese Emperor</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">Largest Empire in History</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4">World's tallest Mountain</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample5" aria-expanded="false" aria-controls="multiCollapseExample5">Percentage of people who are Asian</button>
+          </p>
+
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body">
+                        <p>The largest country today is <strong>India with over 1.4 billion</strong>. It recently overtook China to become the largest country on Earth.</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                    <div class="card card-body">
+                        <p>The first Chinese Emperor was <strong>Qin Shi Huang</strong> who ruled china from 221-210 BCE as part of the Qin dynasty.</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample3">
+                    <div class="card card-body">
+                    <p>The largest Empire in history is the <strong>Mongol Empire</strong> which was led by Ghengis Khan and ruled over 23 million square kilometers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample4">
+                    <div class="card card-body">
+                    <p><strong>Mt. Everest </strong> is the tallest mountain in the world at 8,849m</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample5">
+                    <div class="card card-body">
+                    <p><strong>58%</strong> of the worlds total population lives within Asia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+<%- include('footer'); -%>

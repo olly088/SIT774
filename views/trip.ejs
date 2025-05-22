@@ -1,0 +1,647 @@
+<%- include('header'); -%>
+
+<%- include('navigation'); -%>
+
+    <div class="container">
+
+    <!-- Country Summary -->
+    <div class="container text-center justify-content-center mt-2 mb-2 p-3">
+        <div class="row">
+            <div class="col-12 col-lg-8 text-muted">
+                <h2 class="text-dark"><%= trip.Country %></h2>
+                <p class="card-text d-none d-md-block"><%= trip.Description %></p>
+            </div>
+            <div class="col-lg-4 d-none d-lg-flex align-items-center justify-content-center">
+                <img src="/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= trip.Featured_Pic %>" class="img-fluid rounded" alt="Picture of <%= trip.Country %>">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image Carousel -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <div id="carouselPictures" class="carousel slide carousel-fade mt-3 mb-3" style="height: 500px;">
+                    
+                    <!-- Inner part of carousel which has ejs logic to look over list of destinations which has been passed in through the routing after running an SQL select query -->
+                    <div class="carousel-inner" style="height: 100%; overflow: hidden; border-radius: 25px;">
+                        <% destinations.forEach(function(destination, index) { %>
+                            <div class="carousel-item <%= index === 0 ? 'active' : '' %>" style="height: 100%;">
+                                <img src="/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= destination.Dest_Pic %>" class="d-block w-100" style="object-fit: cover; height: 100%;" alt="Picture of <%= destination.Dest_Name %>s in <%= trip.Country %>">
+                                <div class="carousel-caption" style="text-shadow: 1px 1px 1px black">
+                                    <h5><%= destination.Dest_Name %></h5>
+                                    <p class="d-none d-md-block"><%= destination.Dest_Description %></p>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPictures" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span style="text-shadow: 1px 1px 1px black">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselPictures" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span style="text-shadow: 1px 1px 1px black">Next</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <!-- Different country info -->
+    <div class="container text-center mt-4">
+        <div class="row">
+            <div class="col-4">
+                <h5><u>Who for</u>:</h5>
+                <div class="d-flex justify-content-center">
+                    <ul class="list-unstyled">
+                        <li>Ages: <%= trip.Ages %></li>
+                        <li>Group size: <%= trip.Group_Size %></li>
+                        <li>Accomodation: <%= trip.Accommodation %></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-4">
+                <h5><u>Main Destinations</u>:</h5>
+                <div class="d-flex justify-content-center">
+                    <ul class="list-unstyled">
+                        <% destinations.forEach(function(destination, index) { %>
+                            <li><%=destination.Dest_Name %></li>
+                        <% }); %>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-4">
+                <h5><u>Tour info</u>:</h5>
+                <div class="d-flex justify-content-center">
+                    <ul class="list-unstyled">
+                        <li>Cost: $<%= trip.Cost %></li>
+                        <li>Length: <%= trip.Length %> days</li>
+                        <li>Start: <%= trip.Start_Date %></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- API results -->
+    <div class="row d-none d-md-flex justify-content-center align-items-center mt-3 mb-5">
+        
+        <!-- Info card for country info-->
+        <div class="col-md-5">
+            <div class="card">
+                <img src="<%= countryData.flags.png %>" class="card-img-top" style="height: 300px; object-fit: cover;" alt="<%= countryData.flags.alt %>">
+                <div class="card-body d-flex flex-column">
+                    <h4><strong><%= trip.Country %> facts</strong></h4>
+                    <ul>
+                        <li>Capital City: <%= countryData.capital[0] %></li>
+                        <li>Official Name: <%= countryData.name.official %></li>
+                        <li>Population: <%= countryData.population %></li>
+                        <li>Area: <%= countryData.area %>km2</li>
+                        <li>Sub-Region: <%= countryData.subregion %></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info card for country weather-->
+        <div class="col-md-3">
+            <div class="card">
+                <img class="mx-auto d-block" src="https://openweathermap.org/img/wn/<%= weatherData.weather[0].icon %>@2x.png" alt="<%= weatherData.weather[0].description %>" width="30%">
+                <div class="card-body d-flex flex-column">
+                    <p>At the moment the weather in <%= countryData.capital[0] %> is <em><%= weatherData.weather[0].description %></em></p>
+                    <ul>
+                        <li>Temperature: <%= weatherData.main.temp %> °C</li>
+                        <li>Range: <%= weatherData.main.temp_min %> °C - <%= weatherData.main.temp_max %> °C </li>
+                        <li>Humidity: <%= weatherData.main.humidity %>%</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API results (alt for small screens) -->
+    <div class="row d-flex d-md-none justify-content-around align-items-center mt-3 mb-5">
+        
+        <!-- Info card for country info-->
+        <div class="col-10 mt-3 mb-5">
+            <div class="card">
+                <img src="<%= countryData.flags.png %>" class="card-img-top" style="height: 300px; object-fit: cover;" alt="<%= countryData.flags.alt %>">
+                <div class="card-body d-flex flex-column">
+                    <h4><strong><%= trip.Country %> facts</strong></h4>
+            
+                    <ul>
+                        <li>Capital City: <%= countryData.capital[0] %></li>
+                        <li>Official Name: <%= countryData.name.official %></li>
+                        <li>Population: <%= countryData.population %></li>
+                        <li>Area: <%= countryData.area %>km2</li>
+                        <li>Sub-Region: <%= countryData.subregion %></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info card for country weather-->
+        <div class="col-10">
+            <div class="card">
+                <img class="mx-auto d-block" src="https://openweathermap.org/img/wn/<%= weatherData.weather[0].icon %>@2x.png" alt="<%= weatherData.weather[0].description %>" width="30%">
+                <div class="card-body d-flex flex-column">
+                    <p>At the moment the weather in <%= countryData.capital[0] %> is <em><%= weatherData.weather[0].description %></em></p>
+                  
+                    <ul>
+                        <li>Temperature: <%= weatherData.main.temp %> °C</li>
+                        <li>Range: <%= weatherData.main.temp_min %> °C - <%= weatherData.main.temp_max %> °C </li>
+                        <li>Humidity: <%= weatherData.main.humidity %>%</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explaining how to Use above APIs -->
+    <div class="container mb-4 mt-4">
+        <div class="card p-4 shadow-sm">
+            <h4>How to Use APIs to recieve JSON and create dynamic pages (RestCountries Example)</h4>
+            <p>APIs stand for <strong>Application Programming Interface</strong>. The use of APIs in this page help us to dynamically populate the pages by sending requests to different APIs that then return us information in the form of JSON, 
+                we can parse and then embed in our website.
+            </p>
+            <p>
+                The first API we used on this page is <a href="https://restcountries.com/">restCounties v3.1</a>. It is an API designed to provide lots of information about a country in the form of some JSON. RestCountries is a public API meaning it doesnt need a key.<br><br>
+                To work with an API like RestCountries we use the <em>await fetch(query)</em> function with the query: `https://restcountries.com/v3.1/name/${countryName}` in our case. This provides us some data we can then convert to JSON using await recievedData.toJSON().<br><br>
+                Because we use await and wait for the fetch to return the function carrying out these tasks also has to be asyncronous (async(req, res) =>).<br><br>
+            </p>
+            <p>
+                <pre><code class="language-js">
+                // Example code: Rest-Country data recieved from API query<br>
+                const restData = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
+                const data = await restData.json();
+                const countryData = data[0];
+                </code></pre>
+            </p>
+            <p>
+                After this is complete we would have some json to then work with to fill out our website.<br>
+                Below is an example for country: Egypt <br><br>
+                
+                <pre><code class="language-json">
+                {
+                name: {
+                    common: 'Egypt',
+                    official: 'Arab Republic of Egypt',
+                    nativeName: { ara: [Object] }
+                },
+                tld: [ '.eg', '.مصر' ],
+                cca2: 'EG',
+                ccn3: '818',
+                cioc: 'EGY',
+                independent: true,
+                status: 'officially-assigned',
+                unMember: true,
+                currencies: { EGP: { symbol: '£', name: 'Egyptian pound' } },
+                idd: { root: '+2', suffixes: [ '0' ] },
+                capital: [ 'Cairo' ],
+                altSpellings: [ 'EG', 'Arab Republic of Egypt' ],
+                region: 'Africa',
+                subregion: 'Northern Africa',
+                languages: { ara: 'Arabic' },
+                latlng: [ 27, 30 ],
+                landlocked: false,
+                borders: [ 'ISR', 'LBY', 'PSE', 'SDN' ],
+                area: 1002450,
+                demonyms: {
+                    eng: { f: 'Egyptian', m: 'Egyptian' },
+                    fra: { f: 'Égyptienne', m: 'Égyptien' }
+                },
+                cca3: 'EGY',
+                translations: {
+                    ara: { official: 'جمهورية مصر العربية', common: 'مصر' },
+                    bre: { official: 'Republik arab Egipt', common: 'Egipt' },
+                    ces: { official: 'Egyptská arabská republika', common: 'Egypt' },
+                    cym: { official: 'Gweriniaeth Arabaidd yr Aifft', common: 'Yr Aifft' },
+                    deu: { official: 'Arabische Republik Ägypten', common: 'Ägypten' },
+                    est: { official: 'Egiptuse Araabia Vabariik', common: 'Egiptus' },
+                    fin: { official: 'Egyptin arabitasavalta', common: 'Egypti' },
+                    fra: { official: "République arabe d'Égypte", common: 'Égypte' },
+                    hrv: { official: 'Arapska Republika Egipat', common: 'Egipat' },
+                    hun: { official: 'Egyiptomi Arab Köztársaság', common: 'Egyiptom' },
+                    ind: { official: 'Republik Arab Mesir', common: 'Mesir' },
+                    ita: { official: "Repubblica araba d'Egitto", common: 'Egitto' },
+                    jpn: { official: 'エジプト·アラブ共和国', common: 'エジプト' },
+                    kor: { official: '이집트 아랍 공화국', common: '이집트' },
+                    nld: { official: 'Arabische Republiek Egypte', common: 'Egypte' },
+                    per: { official: 'جمهوری عربی مصر', common: 'مصر' },
+                    pol: { official: 'Arabska Republika Egiptu', common: 'Egipt' },
+                    por: { official: 'República Árabe do Egipto', common: 'Egito' },
+                    rus: { official: 'Арабская Республика Египет', common: 'Египет' },
+                    slk: { official: 'Egyptská arabská republika', common: 'Egypt' },
+                    spa: { official: 'República Árabe de Egipto', common: 'Egipto' },
+                    srp: { official: 'Арапска Република Египат', common: 'Египат' },
+                    swe: { official: 'Arabrepubliken Egypten', common: 'Egypten' },
+                    tur: { official: 'Mısır Arap Cumhuriyeti', common: 'Mısır' },
+                    urd: { official: 'مصری عرب جمہوریہ', common: 'مصر' },
+                    zho: { official: '阿拉伯埃及共和国', common: '埃及' }
+                },
+                flag: '🇪🇬',
+                maps: {
+                    googleMaps: 'https://goo.gl/maps/uoDRhXbsqjG6L7VG7',
+                    openStreetMaps: 'https://www.openstreetmap.org/relation/1473947'
+                },
+                population: 102334403,
+                gini: { '2017': 31.5 },
+                fifa: 'EGY',
+                car: { signs: [ 'ET' ], side: 'right' },
+                timezones: [ 'UTC+02:00' ],
+                continents: [ 'Africa' ],
+                flags: {
+                    png: 'https://flagcdn.com/w320/eg.png',
+                    svg: 'https://flagcdn.com/eg.svg',
+                    alt: "The flag of Egypt is composed of three equal horizontal bands of red, white and black, with Egypt's national emblem — a hoist-side facing gold eagle of Saladin — centered in the white band."
+                },
+                coatOfArms: {
+                    png: 'https://mainfacts.com/media/images/coats_of_arms/eg.png',
+                    svg: 'https://mainfacts.com/media/images/coats_of_arms/eg.svg'
+                },
+                startOfWeek: 'sunday',
+                capitalInfo: { latlng: [ 30.05, 31.25 ] },
+                postalCode: { format: '#####', regex: '^(\\d{5})$' }
+                }
+                </code></pre>
+
+                <br>
+                <br>
+                This is alot to take in but the JSON format makes accessing whatever fields you need very simply. For instance if you wanted to get the official name of the Country all you would have to do is have (ourCountryDataObject) countryData.name.official.<br><br>
+                Being returned JSON strings allows us to work with a large amount of data very simply and provides us flexibility to easily add or take away information without painstakingly doing it all ourselves.
+            </p>
+        </div>
+    </div>
+
+    <!-- Explaining how to Use above APIs -->
+    <div class="container mb-4 mt-4">
+        <div class="card p-4 shadow-sm">
+            <h4>How to Use APIs to recieve JSON and create dynamic pages and how to store keys (openWeather Example)</h4>
+            <p>We have learned how to use a basic API above through the RestCountries example. We build upon that to use some of the information gained from that API query to make our next query to another service.<br>
+                In particular we use the RestCountries API to find out the capital of the given country and then query <strong>openWeather</strong> to find information about the weather in a given city which we then use to populate our pages.<br>
+                <br>
+            </p>
+            <p>
+                <pre><code class="language-js">
+                // Example code: to recieve data from openWeather API query<br>
+                const weatherAPIKey = process.env.weatherAPIKey;
+                const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/
+                    weather?q=${countryData.capital[0]}&units=metric&appid=${weatherAPIKey}`);
+                const weatherData = await weatherResponse.json();
+                </code></pre>
+            </p>
+            <p>
+                In the above example we see how we used one api query to build another as we queried the openWeather API for the city countryData.capital[0].<br>
+                We also see that unlike the public API restCounties, openWeather requires an API key. They provide API keys for fee and have a generous free limit but all the same it requires creating an account and being provisioned an API key by them.<br>
+                You can create an account here: <a href="https://openweathermap.org/api">openWeather API Sign-up</a><br>
+                <br>
+                Once we have the key it is important not to hard-code it as then it can be publicly seen by anyone, not a big deal in this case but for more sophisticated applications this is very important and a large source of security issues.<br>
+                To store keys privately we create a .env file where we set the key values, in our case: weatherAPIKey=4888fffc5842ac007bc9d23a94da3671<br>
+                Then in our project we have to install dotenv using 'npm install dotenv' and we also have to have to configure 'dotenv' at the top of our index.js file that handles the node-express routing. [const dotenv = require('dotenv').config();].<br>
+                Then before we make our query we get the key with [const weatherAPIKey = process.env.weatherAPIKey;].
+                <br>
+                Working this way allows us to keep our API keys secure and prevent people using them especially in cases where there is senseitive information or the API calls are billed.<br>
+            </p>
+            <p>
+                <pre><code class="language-json">
+                {
+                coord: { lon: 31.2497, lat: 30.0626 },
+                weather: [ { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' } ],
+                base: 'stations',
+                main: {
+                    temp: 22.42,
+                    feels_like: 22.28,
+                    temp_min: 22.42,
+                    temp_max: 22.42,
+                    pressure: 1014,
+                    humidity: 60,
+                    sea_level: 1014,
+                    grnd_level: 1008
+                },
+                visibility: 10000,
+                wind: { speed: 3.6, deg: 20 },
+                clouds: { all: 0 },
+                dt: 1747899316,
+                sys: {
+                    type: 1,
+                    id: 2514,
+                    country: 'EG',
+                    sunrise: 1747882673,
+                    sunset: 1747932345
+                },
+                timezone: 10800,
+                id: 360630,
+                name: 'Cairo',
+                cod: 200
+                }
+                </code></pre>
+                After we ran above code we now have a weatherData JSON object which we can pass into our ejs files and render the infromation we want from the JSON.<br>
+                <br>
+                The JSON for the weatherData looks like this:<br>
+
+                We can then get the humidity for instance through weatherData.main.humidity.
+            </p>
+        </div>
+    </div>
+
+    <!-- Currency Convert Using API-->
+    <div class="container text-center mb-4 mt-4">
+        <div class="card p-4 shadow-sm">
+            <h3>Currency Converter</h3>
+            <h6>Current Exchange Rate: $1 to <%= countryData.currencies[Object.keys(countryData.currencies)[0]].symbol %><%= exchangeData.conversion_rate %></h6>
+
+            <div class="row justify-content-center mb-3">
+                <div class="col-4">
+                <label for="AUDAmount" class="form-label">Enter the amount of AUD:</label>
+                <input type="number" id="AUDAmount" class="form-control" placeholder="AUD Amount" />
+                </div>
+
+                <div class="col-4">
+                <label for="ForeignAmount" class="form-label"><%= countryData.currencies[Object.keys(countryData.currencies)[0]].name %> (<%= countryData.currencies[Object.keys(countryData.currencies)[0]].symbol %>)</label>
+                <input type="number" id="ForeignAmount" class="form-control" placeholder="<%= countryData.currencies[Object.keys(countryData.currencies)[0]].name %>s" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explaining how to Use above APIs -->
+    <div class="container mb-4 mt-4">
+        <div class="card p-4 shadow-sm">
+            <h4>How to Use APIs to recieve JSON and create dynamic pages and manage API usage (exchangeRate Example)</h4>
+            <p>We have learned how to work with public and private APIs through the use of API keys and how to store them. openWeather APIs free-tier is generous and allows us to be confident we won't use more than we are alloted.<br><br>
+                Other APIs like our our Exchange Rate API (<a href="https://www.exchangerate-api.com">ExchangeRate-API</a>) is more limited which means when using this API we have to monitor our usage. This is done through their site.<br>
+                <br><img src="/static/images/exchangeAPIexample.png" width=500px; alt="Example image of API usage information given by site"><br><br>
+                We access the data from this api in similar manner to openWeather API as seen below.
+
+            <br>
+            </p>
+            <p>
+                <pre><code class="language-js">
+                // Example code: to recieve exchange-rate data from exchangeRate-API query<br>
+                const exchangeAPIKey = process.env.exchangeAPIKey;
+                const exchangeResponse = await fetch(`https://v6.exchangerate-api.com/v6/${exchangeAPIKey}/
+                        pair/AUD/${Object.keys(countryData.currencies)[0]}`);
+                const exchangeData = await exchangeResponse.json();
+                </code></pre>
+                <br>
+            </p>
+            <p>
+                By finding the exchange rate and passing it into our ejs file we can then use it within our javaSrcipt to come up with dynamic conversions between currencies as we can just do simple maths on user input.<br>
+                <br>
+                In our page we have following javaScript:<br>
+
+                <pre><code class="language-js">
+                const AUDtoForeign = < %- exchangeData.conversion_rate % >;
+
+                const AUDInput = document.getElementById('AUDAmount');
+                const ForeignInput = document.getElementById('ForeignAmount');
+
+                // When user types in AUD, update the foreign currency with the aud value*exchange rate
+                AUDInput.addEventListener('input', () => {
+                    const val = parseFloat(AUDInput.value);
+                    if (!isNaN(val)) {
+                        ForeignInput.value = (val * AUDtoForeign).toFixed(2);
+                    } else {
+                        ForeignInput.value = '';
+                    }
+                });
+
+                // When user types in Foreign, update the AUD currency with the foreign value/(exchange rate)
+                ForeignInput.addEventListener('input', () => {
+                    const val = parseFloat(ForeignInput.value);
+                    if (!isNaN(val)) {
+                        AUDInput.value = (val / AUDtoForeign).toFixed(2);
+                    } else {
+                        AUDInput.value = '';
+                    }
+                });
+                </code></pre>
+                <br>
+
+                <br>
+                The javaScript listens for when the user inputs anything into either text box and then fills the other box with the conversion by perofrming the calculations with the conversion rate given.<br>
+                <br>
+                By using information obtained through JSON retrieved from an external API tool and combining it with javaScript we can create powerful applications easily embedded within our webpages that operate on dynamic information as the exchange rate will update as it is updated in the real-world.<br>
+                <br>
+            </p>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="map" style="height: 400px;"></div>
+    </div>
+
+    <!-- Explaining how to Use above APIs -->
+    <div class="container mb-4 mt-4">
+        <div class="card p-4 shadow-sm">
+            <h4>How to Use APIs to retrieve JSON and create dynamic pages (Leaflet Example)</h4>
+            <p>To create a map and populate with information and waypoints relevant to our country we use information we have stored inside our SQL database in conjunction with the Leaflet API.<br><br>
+                We use the leaflet API to create a map that we can then interact with in our javaScript, adding line and points to the map to reprsent the path of our travel route.<br>
+                To set up <a href="">Leaflet</a> we follow their guide including:<br>
+            </p>
+            <pre><code class="language-html">
+                &lt;!-- Include Leaflet CSS file in the head section of your document --&gt;
+                &lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+                crossorigin=""/&gt;
+
+                &lt;!-- Add this Javascript after Leaflet's CSS --&gt;
+                &lt;script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+                crossorigin=""&gt;&lt;/script&gt;
+                
+                &lt;!-- Adding this somewhere in the contents of the page (edit height to height you want)--&gt;
+                &lt;div id="map" style="height: 400px;&gt;&lt;/div&gt;
+            </code></pre>
+            <p>
+                After completing this, we initialise the map on some point in our page by using javaScript in our page which works with the leaflet map object and coordinates we passed in when we rendered the page.<br>
+                <br>
+                To start we render the map first on the capital of the given country with the capitals co-ordinates again recieved from RestCountry data (stored as JSON countryData) that we accessed before.<br>
+                <br>
+            </p>
+            <pre><code class="language-html">
+            var map = L.map('map').setView([&lt;%- countryData.capitalInfo.latlng[0] %&gt;, &lt;%- countryData.capitalInfo.latlng[1] %&gt;], 13);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; &lt;a href="http://www.openstreetmap.org/copyright">OpenStreetMap&lt;/a&gt;'
+            }).addTo(map);
+
+            var marker = L.marker([&lt;%- countryData.capitalInfo.latlng[0] %&gt;, &lt;%- countryData.capitalInfo.latlng[1] %&gt;]).addTo(map);
+            marker.bindPopup("&lt;b&gt;&lt;%= countryData.capital[0] %&gt;&lt;/b&gt;, the capital of &lt;%= trip.Country %&gt;.").openPopup();
+            </code></pre>
+            <p>
+                From this we now have a map that is centered on the country capital and marker with some html to format a message saying "This is <em>capital city</em> capital of <em>country</em>"<br>
+                <br>
+                We can take it further than this and we can use leaflet to draw lines between all our destinations.<br>
+                Before we rendered the page, in our routing for our express-node site we used SQL to get all the destinations of the relveant country, 
+                each destination has its coordinates in the database so from passing the results of the sql into the page we can then work with them in our javascript to popualte the map.<br>
+            </p>
+            <pre><code class="language-js">
+            db.get(`SELECT * FROM Trips WHERE LOWER(Country) = LOWER(?)`, [countryName], (err, row) => {
+            
+                if (err) {
+                console.error(err);
+                return res.status(500).send("Database error");
+                }
+
+                if (!row) {
+                return res.status(404).send("Country not found");
+                }
+
+                db.all(`SELECT * FROM Destinations WHERE Lower(Country) = Lower(?)`, [countryName], (err, destinations) => {
+                    db.all(`SELECT * FROM Reviews WHERE Lower(Country) = Lower(?)`, [countryName], (err, reviews) => {
+                        res.render('trip', {title: `${row.Country} Trip`, trip: row, destinations : destinations, reviews : reviews, countryData : countryData, weatherData: weatherData, exchangeData : exchangeData});
+                    });
+                });
+            });
+            </code></pre> 
+            
+            <p>
+                After we passed in the results of our sql into our page. We can then go through each destination and add their coordinates to an array.<br> 
+                At the start and end of the array we also place the capital in order to make it a closed loop. And to reprsent how most people fly-in and out of the country.<br>
+            </p>
+
+            <pre><code class="language-js">
+            // Draw lines between all the destinations
+            const destinationCoords = [
+                [&lt;%- countryData.capitalInfo.latlng[0] %>, &lt;%- countryData.capitalInfo.latlng[1] %&gt;],
+                &lt;% destinations.forEach(function(destination, index) { %&gt;
+                    [&lt;%= destination.latitude %&gt;, &lt;%= destination.longitude %&gt;],
+                &lt;% }); %&gt;
+                [&lt;%- countryData.capitalInfo.latlng[0] %&gt;, &lt;%- countryData.capitalInfo.latlng[1] %&gt;]
+            ];
+            var route = L.polyline(destinationCoords, {color: 'blue', weight: 3}).addTo(map);
+            </code></pre> 
+            <p>
+                Lastly we also use the latitude and longitude of the different destinations recieved from the SQL query to place a marker down with information about that destination. We do this with javascript and more ejs logic.<br>
+            </p>
+            <pre><code class="language-js">
+            &lt;% destinations.forEach(function(destination, index) { %&gt;
+                &lt;script&gt;
+                    // Add marker with a title and picture
+                    var marker = L.marker([&lt;%- destination.latitude %&gt;, &lt;%- destination.longitude %&gt;]).addTo(map);
+                    marker.bindPopup("&lt;b&gt;&lt;%= destination.Dest_Name %&gt;&lt;/b&gt;, is one of our stops on our &lt;%= trip.Country %&gt; trip!&lt;br&gt;  &lt;div style='text-align: center;'&gt;&lt;img src='/static/images/&lt;%= trip.Continent %&gt;/&lt;%= trip.Country %&gt;/&lt;%= destination.Dest_Pic %&gt;' width=200&gt;&lt;/div&gt;"); 
+                &lt;/script&gt;
+            &lt;% }); %&gt;
+            </code></pre> 
+            <p>
+                <b>This simple use of leaflet (and openstreetmap) with data recieved from SQL queries to our db (handled server-side) allows us to render a map that is dynamically populated with accurate markers and routes.</b><br>
+                The dynamism of our page will be really attractive to potential customers who can now view the potential route in full, and also because of access to dynamic information from APIs such as ExchangeRate-Api, openWeather, and RestCountries
+                that enables the customers to see weather, exchange rate and other important information about the place they may visit.<br>
+            </p>
+        </div>
+    </div>
+
+
+
+    <!-- Different country quotes -->
+    <div class="mb-5">
+        <div id="carouselQuotes" class="carousel slide mt-3 mb-3 p-3 align-items-center" style="height: 200px;" data-bs-ride="carousel">
+            <div class="carousel-inner" style="height: 200px;">
+
+                <!-- For each Slides -->
+                <% reviews.forEach(function(review, index) { %>
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>" style="height: 200px;">
+                    <div class="row align-items-center h-100">      
+                        <!-- Image column -->
+                        <div class="col-md-3 d-none d-md-block">
+                            <img src="/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= review.Review_Pic %>" class="img-fluid rounded" style="object-fit: fill; height: 160px;" alt="Picture of tourist <%= review.Review_Name %>">
+                        </div>
+                        
+                        <!-- Text column -->
+                        <div class="col-md-9 text-secondary text-center">
+                            <em>"<%= review.Review_Description %>"</em>
+                            <div> -<%= review.Review_Name %></div>
+                        </div>   
+                    </div>
+                </div>
+                <% }); %>
+
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselQuotes" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span style="text-shadow: 2px 2px 2px black">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselQuotes" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span style="text-shadow: 2px 2px 2px black">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+    <script>
+        var map = L.map('map').setView([<%- countryData.capitalInfo.latlng[0] %>, <%- countryData.capitalInfo.latlng[1] %>], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var marker = L.marker([<%- countryData.capitalInfo.latlng[0] %>, <%- countryData.capitalInfo.latlng[1] %>]).addTo(map);
+        marker.bindPopup("<b><%= countryData.capital[0] %></b>, the capital of <%= trip.Country %>.").openPopup();
+
+        // Draw lines between all the destinations
+        const destinationCoords = [
+            [<%- countryData.capitalInfo.latlng[0] %>, <%- countryData.capitalInfo.latlng[1] %>],
+            <% destinations.forEach(function(destination, index) { %>
+                [<%= destination.latitude %>, <%= destination.longitude %>],
+            <% }); %>
+            [<%- countryData.capitalInfo.latlng[0] %>, <%- countryData.capitalInfo.latlng[1] %>]
+        ];
+        var route = L.polyline(destinationCoords, {color: 'blue', weight: 3}).addTo(map);
+    </script>
+
+    <% destinations.forEach(function(destination, index) { %>
+        <script>
+            // Add marker with a title and picture
+            var marker = L.marker([<%- destination.latitude %>, <%- destination.longitude %>]).addTo(map);
+            marker.bindPopup("<b><%= destination.Dest_Name %></b>, is one of our stops on our <%= trip.Country %> trip!<br>  <div style='text-align: center;'><img src='/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= destination.Dest_Pic %>' width=200></div>"); 
+        </script>
+    <% }); %>
+
+
+
+    <script>
+        // For handling currency conversions, the rate is passed into the page after an api call
+        const AUDtoForeign = <%- exchangeData.conversion_rate %>;
+
+        const AUDInput = document.getElementById('AUDAmount');
+        const ForeignInput = document.getElementById('ForeignAmount');
+
+        // When user types in AUD, update the foreign currency with the aud value*exchange rate
+        AUDInput.addEventListener('input', () => {
+            const val = parseFloat(AUDInput.value);
+            if (!isNaN(val)) {
+                ForeignInput.value = (val * AUDtoForeign).toFixed(2);
+            } else {
+                ForeignInput.value = '';
+            }
+        });
+
+        // When user types in Foreign, update the AUD currency with the foreign value/(exchange rate)
+        ForeignInput.addEventListener('input', () => {
+            const val = parseFloat(ForeignInput.value);
+            if (!isNaN(val)) {
+                AUDInput.value = (val / AUDtoForeign).toFixed(2);
+            } else {
+                AUDInput.value = '';
+            }
+        });
+
+    </script>
+
+
+
+
+<%- include('footer'); -%>

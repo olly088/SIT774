@@ -1,0 +1,165 @@
+<%- include('header'); -%>
+
+<%- include('navigation'); -%>
+  
+    
+
+    <!-- Continent Summary -->
+    <div class="container text-center justify-content-center mt-2 mb-2 p-3">
+        <div class="row">
+            <div class="col-12 text-muted">
+                <h1 class="text-dark">Europe</h2>
+                <p class="card-text d-none d-md-block">A holiday in Europe can mean anything from a tour of some of the world's most famous landmarks and cities, to enjoying a quiet getaway in the far corners of this surprisingly diverse continent. 
+                    Europe packs in many flavors, traditions, religions and colors. The continent tops the list for those who love history, culture, shopping, wining and dining. Nature is never far away, if you need to unwind. 
+                    Whether you picture yourself skiing in the Alps, getting happily lost in cobblestoned old towns, getting pampered in Icelandic hotsprings and Scandinavian saunas, or lazing on a Mediterranean beach, Europe makes many daydreams come true. 
+                    Of course, visiting Europe is also about seeing some of the world's most famous landmarks. Whether you fly, train or bus it, it can take as little as a week to visit Big Ben and Tower Bridge in London, the canal district of Amsterdam and the Brandenburg Gate in Berlin. 
+                    Make it a fortnight and you can also take in Edinburgh Castle in Scotland, the Eiffel Tower and Arc de Triomphe in France, the Roman Colosseum and Leaning Tower of Pisa in Italy, the Sagrada Familia in Spain and the Acropolis in Greece. 
+                    Don't forget to also enjoy the Mediterranean lifestyle by kicking back on Europe's southern beaches and sampling its olives, cheeses and seafood and wines</p>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    <!-- Country Card summaries -->
+    <div class="d-none d-md-flex justify-content-around mt-3">
+        
+        <% trips.forEach(function(trip, index) { %>
+        <!-- Info card for morocco -->
+        <div class="card" style="width: 22rem;">
+            <img src="/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= trip.Featured_Pic %>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<%= trip.Country %> pic">
+            <div class="card-body d-flex flex-column">
+                <h4><strong><%= trip.Country %></strong></h4>
+                <!-- Source: Expedia.com/morocco -->
+                <p class="card-text d-none d-md-block"><%= trip.Description %></p>
+                <div class="d-flex mt-auto">
+                    <div class="col-8">
+                        <ul class="list-unstyled">
+                            <li><strong>Cost: </strong>$<%= trip.Cost %></li>
+                            <li><strong>Length: </strong><%= trip.Length %> days</li>
+                            <li><strong>Start: </strong><%= trip.Start_Date %></li>
+                        </ul>
+                    </div>
+                    <div class="col-4 d-flex mt-auto justify-content-end">
+                        <a class="fs-5" href="/trips/<%= trip.Country %>">More Info</a>
+                    </div>  
+                </div>   
+            </div>
+        </div>
+        <% }); %>
+    </div>
+
+
+    <!-- Alternative Horizontal card summaries for small screens-->
+    <div class="d-flex flex-column d-md-none justify-content-center align-items-center mt-3">
+    
+       <% trips.forEach(function(trip, index) { %>
+        <div class="card flex-md-row mt-2 mb-2" style="max-width: 500px;">  
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h4><strong>Morocco</strong></h4>
+                <div class="d-flex mt-auto justify-content-between">
+                    <div class="col-6">
+                        <img src="/static/images/<%= trip.Continent %>/<%= trip.Country %>/<%= trip.Featured_Pic %>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="<%= trip.Country %> pic">
+                    </div>
+                    <div class="col-6 d-flex flex-column">
+                        <ul class="list-unstyled m-2">
+                            <li><strong>Cost: </strong>$<%= trip.Cost %></li>
+                            <li><strong>Length: </strong><%= trip.Length %> days</li>
+                            <li><strong>Start: </strong><%= trip.Start_Date %></li>
+                        </ul>
+                        <div class="mt-auto text-end me-2">
+                            <a class="fs-5" href="/trips/<%= trip.Country %>">More Info</a>
+                        </div>  
+                    </div>
+                </div>   
+            </div>
+        </div>
+        <% }); %>
+
+    </div>
+
+
+
+
+    
+    <!-- Different country quotes -->
+    <div id="carouselQuotes" class="carousel slide mt-3 mb-3 p-3 fs-4 align-items-center" style="height: 200px;" data-bs-ride="carousel">
+        <div class="carousel-inner" style="height: 200px;">
+            <!-- Slide 1 : Default -->
+            <div class="carousel-item active" style="height: 200px;">
+                <div class="row align-items-center h-100">      
+                    <!-- Text column -->
+                    <div class="col-12 text-secondary text-center">
+                        <em>“Europe is the thought and dream of a universal civilization.” - Victor Hugo</em>
+                    </div>   
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item" style="height: 200px;">
+                <div class="row align-items-center h-100">          
+                    <!-- Text column -->
+                    <div class="col-12 text-secondary text-center">
+                        <em>“Europe is a place where history lives in the stones and stories linger in every cobblestone street.” - Mark Twain</em>
+                    </div> 
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-item" style="height: 200px;">
+                <div class="row align-items-center h-100">          
+                    <!-- Text column -->
+                    <div class="col-12 text-secondary text-center">
+                        <em>“Europe is a poem and its cities are its verses.” - Robert Louis Stevenson</em>
+                    </div> 
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="m-3 text-muted">
+        <h2 class="text-dark">Get Excited for your trip with some trivia!</h2>
+        <p>Press the buttons below to reveal the answers to their questions. Have a guess first and write it down and see how much you know about the great continent of Africa.</p>
+
+        <p class="d-flex justify-content-center gap-1">
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Worlds Oldest Country</a>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Deaths in WW2</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">Largest Country in the World</button>
+          </p>
+
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body">
+                        <p>The worlds oldest country is <strong>San Marino</strong>. It was founded in 301 CE.</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                    <div class="card card-body">
+                        <p>There was <strong>75 million deaths</strong> during WW2.</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample3">
+                    <div class="card card-body">
+                    <p>The largest Country in the world is <strong>Russia</strong> which is 17.1 million square kilometers in area.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+<%- include('footer'); -%>
